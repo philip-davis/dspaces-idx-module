@@ -1,0 +1,14 @@
+[server]
+dims = [ 256, 256, 256 ]
+max_versions = 8
+
+
+
+[modules.gddp]
+namespace='idx-query'
+url='https://raw.githubusercontent.com/aashishpanta0/dspaces-idx-module/main/query_param.py'
+
+
+[modules.gddp]
+namespace='cmip6-planetary'
+url='https://raw.githubusercontent.com/aashishpanta0/dspaces-idx-module/main/azure_mod.py'
