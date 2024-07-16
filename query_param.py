@@ -109,5 +109,5 @@ if __name__ == '__main__':
     lb = (0,0)
     ub = (599,1399)
     version = pack('uint:16, uint:16', start, span).uint
-    res = query(name='idx-query\\m:ACCESS-ESM1-5,v:tas', version=1, lb=lb, ub=ub)
+    res = query(name='cmip6-planetary\\m:ACCESS-ESM1-5,v:tas', version=1, lb=lb, ub=ub)
     print(res.shape)
