@@ -75,45 +75,25 @@ def _get_dataset(url):
     return(Dataset(cache_entry))
 
 def _get_cmip6_data(model, scenario, variable, start_date, end_date, lb, ub):
-    result = None
-    result_days = (end_date - start_date).days + 1
-    if have_pc:
-        search = catalog.search(
-                collections=["nasa-nex-gddp-cmip6"],
-                datetime=f'{start_date}/{end_date}',
-                query = {
-                    "cmip6:model": {
-                        "eq": model
-                    },
-                    "cmip6:scenario": {
-                        "in": ['historical', scenario]
-                    },  
-                },
-                sortby=[{'field':'cmip6:year','direction':'asc'}]
-        )
-        items = search.item_collection()
-            
-    for item in items:
-        if have_pc:
-            year = item.properties['cmip6:year']
-            url = item.assets[variable].href
-            ds = _get_dataset(url)
-        else:
-            pass
-        data = ds[variable]
-        if result is None:
-            if lb[0] >= data[0].shape[0] or lb[1] >= data[0].shape[1]:
-                return None
-            ub = (min(ub[0]+1, data[0].shape[0]), min(ub[1]+1, data[0].shape[1]))
-            shape = (result_days, ub[0] - lb[0], ub[1] - lb[1])
-            result = np.ndarray(shape, dtype = data.dtype)
-        item_start = max(start_date, date(year, 1,1))
-        item_end = min(date(year,12,31), end_date)
-        start_gidx = (item_start - start_date).days
-        end_gidx = (item_end - start_date).days + 1
-        start_iidx = (item_start - date(year, 1 , 1)).days
-        end_iidx = (item_end - date(year, 1, 1)).days + 1
-        result[start_gidx:end_gidx,:,:] = data[start_iidx:end_iidx,lb[0]:ub[0],lb[1]:ub[1]]
+    model = "ACCESS-CM2"
+
+
+
+    variable  = "tas" 
+
+    year = 2020 
+    # 2015 is the year whne the data switches from historical to simulated
+    scenario = "historical" if year < 2015 else "ssp585"
+
+    # Open (connect to) dataset
+    dataset_name = f"{variable}_day_{model}_{scenario}_r1i1p1f1_gn"
+    db = ov.LoadDataset(f"http://atlantis.sci.utah.edu/mod_visus?dataset={dataset_name}&cached=arco")
+
+    day_of_the_year = 202 
+    timestep =year*365 + day_of_the_year
+    quality = 0 
+    data=db.read(time=timestep,quality=quality)
+    result = data[lb[0]:ub[0],lb[1]:ub[1]]
     return(result)
 
 def query(name, version, lb, ub):
@@ -130,5 +110,5 @@ if __name__ == '__main__':
     lb = (0,0)
     ub = (599,1399)
     version = pack('uint:16, uint:16', start, span).uint
-    res = query(name='cmip6-planetary\\m:ACCESS-ESM1-5,v:tas', version=1, lb=lb, ub=ub)
+    res = query(name='idx-query\\m:ACCESS-ESM1-5,v:tas', version=1, lb=lb, ub=ub)
     print(res.shape)
