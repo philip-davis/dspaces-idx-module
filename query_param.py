@@ -9,8 +9,7 @@ from urllib.request import urlretrieve
 from bitstring import Bits, pack
 from datetime import date, timedelta
 import sys
-import OpenVisus as ov
-
+from OpenVisus import *
 base_date = date(1950, 1, 1)
 present_date = date(2015, 1, 1)
 last_date = date(2100, 12, 31)
@@ -88,7 +87,7 @@ def _get_cmip6_data(model, scenario, variable, start_date, end_date, lb, ub):
 
     # Open (connect to) dataset
     dataset_name = f"{variable}_day_{model}_{scenario}_r1i1p1f1_gn"
-    db = ov.LoadDataset(f"http://atlantis.sci.utah.edu/mod_visus?dataset={dataset_name}&cached=arco")
+    db = LoadDataset(f"http://atlantis.sci.utah.edu/mod_visus?dataset={dataset_name}&cached=arco")
 
     day_of_the_year = 202 
     timestep =year*365 + day_of_the_year
