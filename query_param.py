@@ -9,6 +9,7 @@ from urllib.request import urlretrieve
 from bitstring import Bits, pack
 from datetime import date, timedelta
 import sys
+import OpenVisus as ov
 
 base_date = date(1950, 1, 1)
 present_date = date(2015, 1, 1)
@@ -93,7 +94,7 @@ def _get_cmip6_data(model, scenario, variable, start_date, end_date, lb, ub):
     timestep =year*365 + day_of_the_year
     quality = 0 
     data=db.read(time=timestep,quality=quality)
-    result = data[lb[0]:ub[0],lb[1]:ub[1]]
+    result = data
     return(result)
 
 def query(name, version, lb, ub):
