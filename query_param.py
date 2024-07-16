@@ -95,7 +95,7 @@ def _get_cmip6_data(model, scenario, variable, start_date, end_date, lb, ub):
     data=db.read(time=timestep,quality=quality)
     result = data[0:250,0:250]
 
-    return(result)
+    return (result)
 
 def query(name, version, lb, ub):
     start_date, end_date = _get_gddp_time_ranges(version)
