@@ -15,66 +15,8 @@ present_date = date(2015, 1, 1)
 last_date = date(2100, 12, 31)
 cache_base='.azrcache'
 
-try:
-    catalog = pystac_client.Client.open(
-        "https://planetarycomputer.microsoft.com/api/stac/v1",
-        modifier=planetary_computer.sign_inplace,
-    )
-    collection = catalog.get_collection("nasa-nex-gddp-cmip6")
-    variable_list=collection.summaries.get_list("cmip6:variable")
-    model_list=collection.summaries.get_list("cmip6:model")[:10]
-    scenario_list=collection.summaries.get_list("cmip6:scenario")
-    have_pc = True
-except pystac_client.exceptions.APIError:
-    print("don't have planetary computer api access")
-    have_pc = False
 
-def _get_gddp_time_ranges(version):
-    bits = Bits(uint=version, length=32)
-    start_day, span_days = bits.unpack('uint:16, uint:16')
-    start_date = base_date + timedelta(days = start_day)
-    end_date = start_date + timedelta(days = span_days)
-    if start_date > last_date:
-        raise ValueError(f'WARNING: start_date of {start_date} is too far in the future')
-    if end_date > last_date:
-        print(f"WARNING: truncating end_date of {end_date} to {last_date}")
-        end_date = last_date
-    return start_date, end_date
-
-def _get_gddp_params(name):
-    model = 'CESM2'
-    scenario = 'ssp585'
-    variable = None
-    var_name = name.split('\\')[-1]
-    name_parts = var_name.split(',')
-    for part in name_parts:
-        if part[0] == 'm':
-            model = part[2:]
-            if have_pc and model not in model_list:
-                raise ValueError(f"model {model} not available.") 
-        if part[0] == 's':
-            scenario = part[2:]
-            if have_pc and scenario not in scenario_list:
-                raise ValueError(f"scenario {scenario} not available.")
-        if part[0] == 'v':
-            variable = part[2:]
-            if have_pc and variable not in variable_list:
-                raise ValueError(f"variable {variable} not available.")
-    if variable == None:
-        raise ValueError('No variable name specified')
-    return model, scenario, variable
-
-def _get_dataset(url):
-    path = urlparse(url).path
-    cache_entry = f'{cache_base}/{path}'
-    if not os.path.exists(cache_entry):
-        cache_dir = os.path.dirname(cache_entry)
-        if not os.path.exists(cache_dir):
-            os.makedirs(os.path.dirname(cache_entry))
-        urlretrieve(url, filename=cache_entry)
-    return(Dataset(cache_entry))
-
-def _get_cmip6_data(model, scenario, variable, start_date, end_date, lb, ub):
+def _get_cmip6_data():
     model = "ACCESS-CM2"
     variable  = "tas" 
 
@@ -89,17 +31,16 @@ def _get_cmip6_data(model, scenario, variable, start_date, end_date, lb, ub):
 
     day_of_the_year = 202 
     timestep =year*365 + day_of_the_year
-    quality = 0 
+    quality = -4 
     data=db.read(time=timestep,quality=quality)
-    result = data[0:256,0:256]
+    result = data
 
-    return (result)
+    return np.array(result)
 
 def query(name, version, lb, ub):
-    start_date, end_date = _get_gddp_time_ranges(version)
-    model, scenario, variable = _get_gddp_params(name)
-    result = _get_cmip6_data(model, scenario, variable, start_date, end_date, lb, ub)
-    return(result)
+
+    result = _get_cmip6_data()
+    return (result)
 
 if __name__ == '__main__':
     s = date(2013, 5, 2)
