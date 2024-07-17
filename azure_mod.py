@@ -130,7 +130,7 @@ def _get_cmip6_data(model, scenario, variable, start_date, end_date, lb, ub):
     timestep =year*365 + day_of_the_year
     quality = -12 
     data=db.read(time=timestep,quality=quality)
-    result=data
+    result=np.nan_to_num(data)
     return(result)
 
 def query(name, version, lb, ub):
