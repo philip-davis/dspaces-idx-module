@@ -114,7 +114,6 @@ def _get_cmip6_data(model, scenario, variable, start_date, end_date, lb, ub):
         start_iidx = (item_start - date(year, 1 , 1)).days
         end_iidx = (item_end - date(year, 1, 1)).days + 1
         result[start_gidx:end_gidx,:,:] = data[start_iidx:end_iidx,lb[0]:ub[0],lb[1]:ub[1]]
-    print('RESULT HERE------------------------------------------------------')
     model = "ACCESS-CM2"
     variable  = "tas" 
 
@@ -129,9 +128,9 @@ def _get_cmip6_data(model, scenario, variable, start_date, end_date, lb, ub):
 
     day_of_the_year = 202 
     timestep =year*365 + day_of_the_year
-    quality = -8 
+    quality = -4 
     data=db.read(time=timestep,quality=quality)
-    result = [data,data,data]
+    # result = [data,data,data]
     result=np.array(result)
     
     return(result)
