@@ -38,11 +38,12 @@ def _get_cmip6_data():
     return np.array(result)
 
 def query(name, version, lb, ub):
-
+    print('GETTING RESULT HERE-------------------------------------------')
     result = _get_cmip6_data()
-    return (result)
+    return result
 
 if __name__ == '__main__':
+    print('MAIN CALLED-------------------------------------------------------')
     s = date(2013, 5, 2)
     e = date(2013, 5, 2)
     start = (s - base_date).days
