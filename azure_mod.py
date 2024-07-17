@@ -128,7 +128,7 @@ def _get_cmip6_data(model, scenario, variable, start_date, end_date, lb, ub):
 
     day_of_the_year = 202 
     timestep =year*365 + day_of_the_year
-    quality = -8 
+    quality = -12 
     data=db.read(time=timestep,quality=quality)
     result=data
     return(result)
