@@ -132,6 +132,7 @@ def _get_cmip6_data(model, scenario, variable, start_date, end_date, lb, ub):
     data=db.read(time=timestep,quality=quality)
     # result = [data,data,data]
     result=np.array(result)
+    result=np.random.rand(200,300)
     
     return(result)
 
