@@ -132,7 +132,7 @@ def _get_cmip6_data(model, scenario, variable, start_date, end_date, lb, ub):
     # quality = -12 
     # data=db.read(time=timestep,quality=quality)
     # result=np.nan_to_num(data)
-    result=np.random.rand(30,40)
+    # result=np.random.rand(30,40)
     return(result)
 
 def query(name, version, lb, ub):
