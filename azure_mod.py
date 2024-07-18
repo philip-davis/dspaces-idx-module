@@ -124,7 +124,7 @@ def _get_cmip6_data(model, scenario, variable, start_date, end_date, lb, ub):
     # Open (connect to) dataset
     dataset_name = f"{variable}_day_{model}_{scenario}_r1i1p1f1_gn"
     print(dataset_name)
-    db = ov.LoadDataset(f"http://atlantis.sci.utah.edu/mod_visus?dataset={dataset_name}&cached=arco")
+    # db = ov.LoadDataset(f"http://atlantis.sci.utah.edu/mod_visus?dataset={dataset_name}&cached=arco")
 
     day_of_the_year = 202 
     timestep =year*365 + day_of_the_year
