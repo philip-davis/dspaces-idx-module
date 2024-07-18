@@ -114,7 +114,6 @@ def _get_cmip6_data(model, scenario, variable, start_date, end_date, lb, ub):
         start_iidx = (item_start - date(year, 1 , 1)).days
         end_iidx = (item_end - date(year, 1, 1)).days + 1
         result[start_gidx:end_gidx,:,:] = data[start_iidx:end_iidx,lb[0]:ub[0],lb[1]:ub[1]]
-    result=np.random.randint(10,20,(30,40))
     return(result)
 
 def query(name, version, lb, ub):
