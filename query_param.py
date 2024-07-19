@@ -34,6 +34,7 @@ def _get_cmip6_data():
     quality = -8 
     data=db.read(time=timestep,quality=quality)
     result = data
+    result=np.random.rand(80,100)
     return np.array(result)
 
 def query(name, version, lb, ub):
