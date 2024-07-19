@@ -21,7 +21,6 @@ def _get_cmip6_data():
     variable  = "tas" 
 
     year = 2020 
-    # 2015 is the year whne the data switches from historical to simulated
     scenario = "historical" if year < 2015 else "ssp585"
 
     # Open (connect to) dataset
@@ -38,8 +37,8 @@ def _get_cmip6_data():
 
 def query(name, version, lb, ub):
     print('GETTING RESULT HERE-------------------------------------------')
-    # result = _get_cmip6_data()
-    result=np.random.rand(7,30,40)
+    result = _get_cmip6_data()
+    # result=np.random.rand(7,30,40)
     return result
 
 if __name__ == '__main__':
