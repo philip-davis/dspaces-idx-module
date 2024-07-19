@@ -33,7 +33,7 @@ def _get_cmip6_data():
     timestep =year*365 + day_of_the_year
     quality = -8 
     data=db.read(time=timestep,quality=quality)
-    result = [data,data,data]
+    result = data
     return np.array(result)
 
 def query(name, version, lb, ub):
