@@ -26,6 +26,7 @@ def _get_cmip6_data():
     # Open (connect to) dataset
     dataset_name = f"{variable}_day_{model}_{scenario}_r1i1p1f1_gn"
     print(dataset_name)
+    sys.stdout.flush()
     db = ov.LoadDataset(f"http://atlantis.sci.utah.edu/mod_visus?dataset={dataset_name}&cached=arco")
 
     day_of_the_year = 202 
@@ -52,3 +53,4 @@ if __name__ == '__main__':
     version = pack('uint:16, uint:16', start, span).uint
     res = query(name='cmip6-planetary\\m:ACCESS-ESM1-5,v:tas', version=1, lb=lb, ub=ub)
     print(res.shape)
+    sys.stdout.flush()
