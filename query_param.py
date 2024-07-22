@@ -35,7 +35,7 @@ def _get_cmip6_data():
     print('Reading IDX data now')
     sys.stdout.flush()
     # data=db.read(time=timestep,quality=quality)
-    result = data
+    # result = data
     result=np.random.rand(80,100)
     return np.array(result)
 
