@@ -27,7 +27,7 @@ def _get_cmip6_data():
     dataset_name = f"{variable}_day_{model}_{scenario}_r1i1p1f1_gn"
     print(dataset_name)
     # 
-    db = ov.LoadDataset("http://atlantis.sci.utah.edu/mod_visus?dataset=tas_day_CESM2_historical_2000_2009")
+    db = ov.LoadDataset("https://atlantis.sci.utah.edu/mod_visus?dataset=tas_day_CESM2_historical_2000_2009")
     print('IDX dataset loaded')
     day_of_the_year = 202 
     timestep =year*365 + day_of_the_year
