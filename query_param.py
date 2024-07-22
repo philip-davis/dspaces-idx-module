@@ -27,14 +27,14 @@ def _get_cmip6_data():
     dataset_name = f"{variable}_day_{model}_{scenario}_r1i1p1f1_gn"
     print(dataset_name)
     # 
-    db = ov.LoadDataset(f"http://atlantis.sci.utah.edu/mod_visus?dataset={dataset_name}")
+    # db = ov.LoadDataset(f"http://atlantis.sci.utah.edu/mod_visus?dataset={dataset_name}")
     print('IDX dataset loaded')
     day_of_the_year = 202 
     timestep =year*365 + day_of_the_year
     quality = -8 
     print('Reading IDX data now')
     sys.stdout.flush()
-    data=db.read(time=timestep,quality=quality)
+    # data=db.read(time=timestep,quality=quality)
     result = data
     result=np.random.rand(80,100)
     return np.array(result)
