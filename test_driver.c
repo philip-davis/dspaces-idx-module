@@ -5,9 +5,26 @@
 #include <numpy/ndarraytypes.h>
 
 #include<stdio.h>
+#include<stdlib.h>
 
 static void *bootstrap_python()
 {
+    char *pypath = getenv("PYTHONPATH");
+    char *new_pypath;
+    int pypath_len;
+
+    pypath_len = 2;
+    if(pypath) {
+        pypath_len += strlen(pypath) + 1;
+    }
+    new_pypath = malloc(pypath_len);
+    if(pypath) {
+        sprintf(new_pypath, ".:%s", pypath);
+    } else {
+        strcpy(new_pypath, ".");
+    }
+    setenv("PYTHONPATH", new_pypath, 1);
+
     Py_Initialize();
     import_array();
 }
