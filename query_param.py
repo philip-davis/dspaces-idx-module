@@ -45,7 +45,7 @@ def query(name, version, lb, ub):
     # result=np.random.rand(7,30,40)
     return result
 
-if __name__ == '__main__':
+def test_driver():
     print('MAIN CALLED-------------------------------------------------------')
     s = date(2013, 5, 2)
     e = date(2013, 5, 2)
@@ -57,3 +57,6 @@ if __name__ == '__main__':
     res = query(name='cmip6-planetary\\m:ACCESS-ESM1-5,v:tas', version=1, lb=lb, ub=ub)
     print(res.shape)
     sys.stdout.flush()
+
+if __name__ == '__main__':
+    test_driver()
