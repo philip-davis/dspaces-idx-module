@@ -2,7 +2,7 @@ import planetary_computer
 from netCDF4 import Dataset
 import fsspec
 import pystac_client
-import numpy as np
+#import numpy as np
 import os
 from urllib.parse import urlparse
 from urllib.request import urlretrieve
@@ -37,7 +37,8 @@ def _get_cmip6_data():
     data=db.read(quality=quality)
     result = data
     # result=np.random.rand(80,100)
-    return np.array(result)
+    #return np.array(result)
+    return None
 
 def query(name, version, lb, ub):
     print('GETTING RESULT HERE-------------------------------------------')
