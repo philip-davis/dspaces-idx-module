@@ -57,6 +57,7 @@ def test_driver():
     res = query(name='cmip6-planetary\\m:ACCESS-ESM1-5,v:tas', version=1, lb=lb, ub=ub)
     print(res.shape)
     sys.stdout.flush()
+    sys.stderr.flush()
 
 if __name__ == '__main__':
     test_driver()
